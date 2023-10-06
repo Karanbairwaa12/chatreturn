@@ -1,0 +1,142 @@
+.register {
+  min-height: 100vh;
+  background-color: #212e35;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:20px;
+}
+.register-container {
+  min-height: 60vh;
+
+}
+
+.register-body {
+  display: flex;
+  flex-direction: column;
+  background-color:#fff;
+}
+
+.profile-pic {
+  min-width: 300px;
+  min-height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:#101b21;
+}
+
+.profile-pic .icon {
+  width:60px;
+  height:60px;
+  color:#fff;
+}
+
+.form h3 {
+  text-align: center;
+    color: #212e35;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.form {
+  padding: 30px 15px;
+}
+
+.input-feild {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.input-feild label {
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+.input-feild input {
+  outline: none;
+  border:0;
+  border-bottom: .5px solid #101b21;
+  width: 100%;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button button {
+  text-align: center;
+  padding:8px 105px;
+  background-color: #101b21;
+  color:#fff;
+  border:0;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.loginroute {
+  font-size:10px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.loginroute a {
+  color:#000;
+}
+
+.passwordtype {
+  position: relative;
+}
+.passwordtype button {
+  position: absolute;
+  right: 5px;
+  outline: 0;
+  border: 0;
+  background: #fff;
+  font-size: 10px;
+  top: 5px;
+}
+.error-message {
+  font-size: 12px;
+    text-align: center;
+    color: #f00;
+}
+.checkUserProfile {
+  width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: 1000;
+    background-color:#0000009e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.checkUserProfileName {
+  margin-top:10px;
+}
+.checkUserProfileContainer {
+  width:350px;
+  padding:20px;
+  display: flex;
+  align-items: center;
+  flex-direction:column;
+  background-color: #7c7c7c;
+  border-radius: 12px;
+}
+.checkUserProfilePic {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.checkUserProfilePic img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+}

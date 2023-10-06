@@ -1,0 +1,108 @@
+.chat-left {
+  margin:1px 0px;
+}
+
+.chat-body {
+  width: 100%;
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px 50px;
+}
+.chat-body::-webkit-scrollbar {
+  width: 0.5em; 
+}
+.message {
+  display: flex; /* Use flex for layout */
+  justify-content: flex-start; /* Default: messages align to the left (other's messages) */
+}
+
+.right-message {
+  justify-content: flex-end; /* Messages from you (align to the right) */
+}
+
+.message-container {
+  max-width: 50%;
+  margin-bottom: 5px;
+}
+
+.message-content {
+  border-radius: 13px;
+  padding: 3px 40px 3px 11px;
+  font-size: 13px;
+  color: #fff;
+  position: relative; /* Limit message width to avoid overflowing the container */
+}
+
+.message-content p {
+  text-align: left;
+}
+
+.message-meta {
+  display: flex;
+  font-size: 8px;
+  margin-top: 3px;
+  text-align: left;
+  position: absolute;
+  right: 0;
+  bottom:1px;
+}
+
+.time {
+  margin-right: 10px;
+
+}
+
+/* Add styles for 'other' messages */
+.message.left-message .message-content {
+  background: #202e35; /* Background color for other's messages */
+}
+
+/* Add styles for 'your' messages */
+.message.right-message .message-content {
+  background: #009688; /* Background color for your messages */
+}
+
+/* Add styles for 'your' message text */
+/* .message.right-message .message-content p {
+  text-align: right; 
+} */
+#you {
+  justify-content: flex-end;
+}
+#visible{
+  visibility: hidden;
+    margin-bottom: 5px;
+}
+#other {
+  justify-content: flex-start;
+}
+.chat-footer {
+  width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 50px;
+    background: #1f2e35;
+    min-height: 9vh;
+}
+.chat-footer-container {
+  width: 100%;
+  background: #293c45;
+  padding: 8px 10px;
+  border-radius: 12px;
+}
+.chat-footer input {
+  width:100%;
+  padding:5px;
+  
+  background-color: transparent;
+  border: 0;
+  outline: none;
+
+  padding:0px 10px;
+  color:#ffff;
+}
+

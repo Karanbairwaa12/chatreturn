@@ -1,0 +1,41 @@
+<div className='group'>
+  <div className='groupContainer'>
+    <div className='groupContainerHeading'>
+      <h3>Create Group chat</h3>
+    </div>
+    <div className='groupName'>
+      <input type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} placeholder='group name'/>
+    </div>
+    <div className='groupSearchSelected'>
+      <div className='groupsearchSelectedItem'>
+        <p>name</p>
+        <p>X</p>
+      </div>
+    </div>
+    <div className='searchUserForGroup'>
+      <input type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} placeholder='search'/>
+    </div>
+    <div className='groupSearchResult'>
+      {
+        searchResult.map((item,i)=> (
+          <div className='user-item' key={i}>
+            <div className='user-item-profile'>
+              <div className='item-profile-pic'>
+                {/* <img src={`data:${item.pic.contentType};base64,${btoa(String.fromCharCode.apply(null, item.pic.data.data))}`} alt="Profile Pic" /> */}
+                <BinaryImage contentType={item.pic.contentType} data={item.pic.data.data} i={i}/>
+              </div>
+            </div>
+            <div className='user-item-data'>
+              <div className='user-item-identity'>
+                <h3>{item.username}</h3>
+              </div>
+              <div className='lattest-msg'>
+                <p>you: this is your messages</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  
+</div>
