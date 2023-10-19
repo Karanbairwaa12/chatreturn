@@ -12,7 +12,7 @@ const BinaryImage = ({ contentType, data, i}) => {
     return window.btoa( binary );
   }
   // Convert the binary data to a base64-encoded string
-  console.log(i,data)
+  // console.log(i,data)
   // const base64String = btoa(String.fromCharCode(...new Uint8Array(data)));
   // console.log("after",base64String)
   // Create the data URL

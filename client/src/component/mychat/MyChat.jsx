@@ -9,7 +9,7 @@ import BinaryImage from '../BinaryImage';
 
 
 const MyChat = ({userData,selectedChat,setChats,user,socket,handleProfile}) => {
-  console.log("this is arpic",socket,selectedChat)
+  // console.log("this is arpic",socket,selectedChat)
   const [loggedUser, setLoggedUser] = useState([])
   const [inputMsg, setInputMsg] = useState("")
   const [message, setMessage] = useState({ data: [] });
@@ -22,7 +22,7 @@ const MyChat = ({userData,selectedChat,setChats,user,socket,handleProfile}) => {
   
   let selectedChatCompare
   
-
+  console.log("mychat",socket)
   const chatBodyRef = useRef();
   // console.log("I dont want this",user)
   const myUser = user
@@ -32,14 +32,14 @@ const MyChat = ({userData,selectedChat,setChats,user,socket,handleProfile}) => {
 
 const handleSubmit = (event) =>{
   setInputMsg(event.target.value)
-  console.log("handleSubmt",message)
+  // console.log("handleSubmt",message)
 
 }
 
 
 const handleContextMenu = (e,item,i) => {
   e.preventDefault()
-  console.log("this is handlecontextMenu:",item)
+  // console.log("this is handlecontextMenu:",item)
   setIsRemovemessage(true)
   setIndex(i)
 }
@@ -65,7 +65,7 @@ const handleContextMenu = (e,item,i) => {
 }
 
 const fetchChats = async () => {
-  console.log("user",myUser)
+  // console.log("user",myUser)
   try {
     const config ={
       headers: {
@@ -100,7 +100,7 @@ const sendMessage = async () => {
       config
     )
 
-    // console.log("this is msg",data)
+    console.log("this is msg",data)
     
 
   
@@ -148,9 +148,11 @@ useEffect(()=> {
 },[selectedChat])
 
 useEffect(() => {
+  // console.log("single chat working 1")
   const handleReceiveMessage = (data) => {
+    console.log("single chat working")
     const isMessageAlreadyExists = message.data.some((item) => item._id === data._id);
-
+    // console.log(isMessageAlreadyExists,data)
     if (!isMessageAlreadyExists) {
       setMessage((prevState) => {
         return {
@@ -174,7 +176,7 @@ useEffect(()=> {
 
 
   
-  console.log("logged user",loggedUser)
+  // console.log("logged user",loggedUser)
   return (
     <div className='chat-left'>
       <div className='left-container'>

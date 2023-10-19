@@ -38,6 +38,7 @@ router.post('/',verify,async (req,res)=> {
         latestMessage:message,
       })
       // console.log("message 3",message)
+      // console.log(message)
       res.status(200).json(message)
     }catch(err) {
       res.status(400).json(err)

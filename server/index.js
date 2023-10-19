@@ -87,20 +87,8 @@ io.on("connection",(socket)=> {
   socket.on("new_message",(data)=> {
     console.log(data)
     socket.to(data.chat._id).emit("receive_message",data)
-    // let chat = data.chat
-    // if(!chat.users) return console.log("chat users are not defined")
-
-    // chat.users.forEach(user => {
-    //   if(user._id === data.sender._id) return 
-
-    //   socket.in(user._id).emit("message_recived",data)
-    // })
   })
-  socket.on("new_group_message", (data) => {
-  console.log("Received new_group_message:", data);
-  const chatRoomId = data.chatId;
-  socket.to(data.chat._id).emit("new_group_message",data)
-});
+ 
   socket.on("disconnect",()=> {
     console.log("User Disconnected",socket.id)
   })

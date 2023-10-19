@@ -39,7 +39,7 @@ router.post('/one',verify,async (req,res)=> {
         const createdChat = await Chat.create(chatData)
         const FullChat = await Chat.findOne({_id: createdChat._id})
         .populate("users","-password")
-
+        console.log(FullChat)
         res.status(200).send(FullChat)
       }catch(error) {
         res.status(400)

@@ -18,11 +18,11 @@ const GrpChat = ({ socket, userData, selectedChat, user, handleProfile }) => {
   const chatBodyRef = useRef();
 
   let myUser = selectedChat
-
-  console.log("this is my myUser:",myUser)
+  console.log("grpchat",socket)
+  // console.log("this is my myUser:",myUser)
   const handleSubmit = (event) =>{
     setInputMsg(event.target.value)
-    console.log("handleSubmt",message)
+    // console.log("handleSubmt",message)
   
   }
 
@@ -46,7 +46,7 @@ const GrpChat = ({ socket, userData, selectedChat, user, handleProfile }) => {
     console.log(err);
   }
 }
-const [seeChanges, setSeeChanges] = useState(false)
+// const [seeChanges, setSeeChanges] = useState(false)
 const sendMessage = async () => {
   try {
     const config = {
@@ -65,17 +65,15 @@ const sendMessage = async () => {
       config
     )
 
-    // console.log("this is msg",data)
-    
+    console.log("this is msg",data)
 
-  
-    await socket.emit("new_group_message", data);
+    await socket.emit("new_message", data); // Use "new_message" instead of "new_group_message"
   setMessage((prevState) => {
     return {
       data: [...prevState.data, data],
     };
   });
-  setSeeChanges(!seeChanges)
+  // setSeeChanges(!seeChanges)
   
   }catch(err) {
     
@@ -113,26 +111,30 @@ useEffect(()=> {
   // selectedChatCompare = selectedChat
 },[selectedChat])
 
+const handleReceiveMessage = (data) => {
+  console.log("working")
+  const isMessageAlreadyExists = message.data.some((item) => item._id === data._id);
+
+  if (!isMessageAlreadyExists) {
+    setMessage((prevState) => {
+      return {
+        data: [...prevState.data, data],
+      };
+    });
+  }
+};
 useEffect(() => {
-  const handleReceiveMessage = (data) => {
-    console.log("Received receive_group_message:", data);
-    const isMessageAlreadyExists = message.data.some((item) => item._id === data._id);
+  console.log("working 1")
+  console.log(socket)
+  
 
-    if (!isMessageAlreadyExists) {
-      setMessage((prevState) => {
-        return {
-          data: [...prevState.data, data],
-        };
-      });
-    }
-  };
+  socket.on("receive_message", handleReceiveMessage);
 
-  socket.on("receive_group_message", handleReceiveMessage);
-
+  
   return () => {
-    socket.off("receive_group_message", handleReceiveMessage);
+    socket.off("receive_message", handleReceiveMessage);
   };
-},[seeChanges]);
+});
 
 useEffect(()=> {
   chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
@@ -150,13 +152,13 @@ useEffect(()=> {
               {
                 myUser && myUser.length !== 0 && (
                   <div className='nav-profile-pic'>
-                    {/* <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" alt="" />
-                     */}
-                    {
+                    <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-veczor-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" alt="" />
+                    
+                    {/* {
                       myUser.pic && (
                         <BinaryImage contentType={myUser.pic.contentType} data={myUser.pic.data.data} />
                       )
-                    }
+                    } */}
                   </div>
                 )
                 
@@ -196,38 +198,39 @@ useEffect(()=> {
         </div>
         
         <div className='chat-body' ref={chatBodyRef}>
-          {/* {console.log(message.data)} */}
-        {message.data && message.data.map((item, i) => {
-          const isMyMessage = item.sender._id === userData.other._id;
-          const messageContainerClass = isMyMessage ? 'message right-message' : 'message left-message';
+  {message.data && message.data.map((item, i) => {
+    const isMyMessage = item.sender._id === userData.other._id;
+    const messageContainerClass = isMyMessage ? 'message right-message' : 'message left-message';
 
-          return (
-            <div className={messageContainerClass} key={i} onClick={() => setIsRemovemessage(false)}>
-              {/* id={username === item.author ?"you":"other"} */}
-              <div className="message-container"  >
-                <div className='message-content'>
-                  <p>{item.content}</p>
-                  <div className='message-meta'>
-                    <div className='time'>{item.createdAt.substring(11, 16)}</div>  {/* Assuming you have a createdAt property */}
-                  </div>
-                  {/* {
-                    isRemoveMessage && index === i && item.sender._id === userData.other._id && (
-                      <div className='dropdownRemove'>
-                        <div className='dropBtn' onClick={()=> handleRemoveMsg(item)}>
-                          remove
-                        </div>
-                      </div>
-                    )
-                  }   */}
-                </div>
-               
-              </div>
+    // Check if the current message is your message and the previous one is not.
+    const isDifferentSender = i === 0 || message.data[i - 1].sender._id !== item.sender._id;
+    const isLastMessage = i === message.data.length - 1;
+
+    const showProfilePic = !isMyMessage && (isDifferentSender || isLastMessage);
+
+    return (
+      <div className={messageContainerClass} key={i} onClick={() => setIsRemovemessage(false)}>
+        <div className='my-message-image'>
+          {showProfilePic && item.sender.pic && (
+            <BinaryImage contentType={item.sender.pic.contentType} data={item.sender.pic.data.data} />
+          )}
+        </div>
+
+        <div className="message-container">
+          <div className='message-content'>
+            {isMyMessage && isLastMessage && (
+              <h3 className='message-content-sender'>{item.sender.username}</h3>
+            )}
+            <p>{item.content}</p>
+            <div className='message-meta'>
+              <div className='time'>{item.createdAt.substring(11, 16)}</div>
             </div>
-            
-          );
-        })}
-        
+          </div>
+        </div>
       </div>
+    );
+  })}
+</div>
       <div className="chat-footer">
       {
         myUser && myUser.length !== 0 && (

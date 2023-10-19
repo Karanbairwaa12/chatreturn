@@ -15,6 +15,7 @@
 .message {
   display: flex; /* Use flex for layout */
   justify-content: flex-start; /* Default: messages align to the left (other's messages) */
+  align-items: flex-end;
 }
 
 .right-message {
@@ -105,4 +106,20 @@
   padding:0px 10px;
   color:#ffff;
 }
-
+.message-content-sender {
+  font-size: 10px;
+  font-weight: 700;
+}
+.my-message-image {
+  width: 28px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+}
+.my-message-image img {
+  height:100%;
+  object-fit: cover;
+  border-radius: 50%;
+}

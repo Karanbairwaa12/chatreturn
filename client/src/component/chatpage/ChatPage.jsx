@@ -32,6 +32,8 @@ const ChatPage = ({userData,handleLogout,backendPath}) => {
   const [logedUserProfilecheck,setLogedUserProfilecheck] = useState(false)
   const [group, setGroup] = useState(false)
   const [groupName,setGroupName] = useState("")
+    const [selecteUserForGroup, setSelecteUserForGroup] = useState([]) 
+  const [changeState, setChangeState] = useState(false)
 
   // console.log("first",userData)
   const handleProfile = () => {
@@ -91,6 +93,7 @@ const ChatPage = ({userData,handleLogout,backendPath}) => {
     // console.log("this is userId", userId);
     // console.log(chats)
     let userId = itemData._id
+    console.log("id",userId)
     try {
       const config = {
         headers: {
@@ -124,14 +127,14 @@ const ChatPage = ({userData,handleLogout,backendPath}) => {
         let dataId = itemData._id
         console.log("this is not a grp chat",newchat)
 
-        const existingChat = newchat.find((chat) =>chat.users.some((user) => user._id === dataId));
+        const existingChat = newchat.find((chat) =>chat._id === dataId);
         console.log(existingChat,itemData,"this is already parsent")
         
         console.log(existingChat,dataId,"this is already parsent")
         if(!existingChat) {
           console.log(userId)
             const { data } = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/chat/one`, { userId }, config);
-            // console.log("chats data:", data)
+            console.log("chats data:", data)
 
             setNewChat([...newchat,data])
             
@@ -146,6 +149,7 @@ const ChatPage = ({userData,handleLogout,backendPath}) => {
             }
         }else {
           console.log("already parsent")
+          console.log(existingChat)
           setSelectedChat(existingChat);
           const namiUser = existingChat.users.find(user => user._id === userId);
           console.log(namiUser)
@@ -273,8 +277,7 @@ const ChatPage = ({userData,handleLogout,backendPath}) => {
     }
   }, [search, userData.accessToken, setWithoutSearchRslt]);
 
-  const [selecteUserForGroup, setSelecteUserForGroup] = useState([]) 
-  const [changeState, setChangeState] = useState(false)
+
   const fetchChats = async () => {
     try {
       const config = {
